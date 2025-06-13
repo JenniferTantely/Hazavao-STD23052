@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class HazavaoController {
-    private final HazavaoService hazavaoService;
+  private final HazavaoService hazavaoService;
 
-    @GetMapping("/hazavao")
-    public ResponseEntity<String> hazavao(@RequestParam String teny) {
-        String definition = hazavaoService.getDefinition(teny);
-        return ResponseEntity.ok(definition);
-    }
+  @GetMapping("/hazavao")
+  public ResponseEntity<String> hazavao(@RequestParam String teny) {
+    String definition = hazavaoService.getDefinition(teny);
+    return ResponseEntity.ok(definition);
+  }
 }
