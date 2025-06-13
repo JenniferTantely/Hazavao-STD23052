@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import java.util.List;
 import java.util.Map;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -10,16 +9,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
-@RequiredArgsConstructor
 public class OpenAiClient {
-  @Value("${openai.api.key}")
-  private String apiKey;
 
-  private final WebClient webClient =
-      WebClient.builder()
-          .baseUrl("https://api.openai.com/v1/chat/completions")
-          .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-          .build();
+  private final String apiKey;
+  private final WebClient webClient;
+
+  public OpenAiClient(@Value("${openai.api.key}") String apiKey) {
+    this.apiKey = apiKey;
+    this.webClient =
+        WebClient.builder()
+            .baseUrl("https://api.openai.com/v1/chat/completions")
+            .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+            .build();
+  }
 
   public String getChatCompletion(String prompt) {
     Map<String, Object> message = Map.of("role", "user", "content", prompt);
