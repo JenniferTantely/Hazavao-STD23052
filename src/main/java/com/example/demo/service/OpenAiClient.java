@@ -15,6 +15,9 @@ public class OpenAiClient {
   private final WebClient webClient;
 
   public OpenAiClient(@Value("${openai.api.key}") String apiKey) {
+    if (apiKey == null || apiKey.isBlank()) {
+      throw new IllegalArgumentException("La clé API OpenAI est manquante !");
+    }
     this.apiKey = apiKey;
     this.webClient =
         WebClient.builder()
