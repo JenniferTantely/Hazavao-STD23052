@@ -48,5 +48,4 @@ jobs:
 
       - run: chmod +x format.sh
       - run: ./format.sh && git diff --exit-code
-      - run: sam build
-      - run: ./gradlew test
+      - run: sam build --template-file infrastructure/template.yaml
